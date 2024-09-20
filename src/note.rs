@@ -67,7 +67,7 @@ impl Note {
 }
 
 fn collect_tags(text: &str) -> Vec<String> {
-    let allowed = "_-/";
+    const ALLOWED: &str = "_-/";
 
     let mut tags = Vec::new();
     let mut next: String = String::new();
@@ -79,7 +79,7 @@ fn collect_tags(text: &str) -> Vec<String> {
         if c == '#' {
             in_tag = true;
         } else if in_tag {
-            if c.is_alphanumeric() || allowed.contains(c) {
+            if c.is_alphanumeric() || ALLOWED.contains(c) {
                 next.push(c);
             } else {
                 if !next.is_empty() {
