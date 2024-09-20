@@ -22,6 +22,7 @@ curl https://raw.githubusercontent.com/gskorokhod/obsidian-garden/main/install.s
 - 🚧 Wikilinks support
 - 🔴 Callouts
 - 🔴 Backlink support
+- 🔴 Ignore files
 
 ### Notes 
 
