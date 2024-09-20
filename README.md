@@ -15,11 +15,35 @@ curl https://raw.githubusercontent.com/gskorokhod/obsidian-garden/main/install.s
 
 ## Features
 
-- [x] Generate fully static HTML files - SEO friendly and easy to deploy
-- [x] Full-text search with [pagefind](https://pagefind.app/)
-- [x] Math expressions with [KaTeX](https://katex.org/)
-- [x] Table of contents
-- [ ] Excalidraw support
+- ✅ Convert your notes to static HTML pages
+- ❔ Full text search with pagefind
+- 🚧 LATEX support
+- 🚧 Wikilinks support
+- 🔴 Callouts
+- 🔴 Backlink support
+
+### Notes 
+
+#### LATEX support 
+
+- Basic LATEX blocks are supported
+- Matrices, cases, and other more complex structures may not be rendered correctly
+- Inline LATEX doesn't always work
+- LATEX inside callouts not supported
+
+#### Wikilinks
+
+- Basic ``[[Wikilinks]]` usually work fine
+- Can't link to paragraphs (e.g.: ``[[My Note#Heading 2]]`` won't render correctly)
+- Suport for non-ASCII links not guaranteed
+- No backlinks
+
+### Legend 
+
+- ✅ - Fully supported
+- ❔ - Claimed in the original, but not yet tested
+- 🚧 - Partially supported
+- 🔴 - Not supported
 
 ## Getting Started
 
