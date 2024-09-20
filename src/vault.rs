@@ -1,4 +1,5 @@
 use petgraph::prelude::{NodeIndex, StableGraph};
+use regex::Regex;
 use serde::Serialize;
 use std::{
     collections::{HashMap, HashSet, VecDeque},
@@ -34,10 +35,19 @@ impl VaultBuilder {
             &[".mp3", ".webm", ".wav", ".m4a", ".ogg", ".3gp", ".flac"];
         const VIDEO_FILE_EXTENSIONS: &[&str] = &[".mp4", ".webm", ".ogv", ".mov", ".mkv"];
         const PDF_FILE_EXTENSIONS: &[&str] = &[".pdf"];
+        const IGNORE_REGEX: &[&str] = &[r"node_modules", r".?*", r"dist"];
 
         for result in WalkDir::new(&self.directory) {
             match result {
                 Ok(entry) => {
+                    if IGNORE_REGEX.iter().any(|re| {
+                        Regex::new(re)
+                            .unwrap()
+                            .is_match(entry.path().to_string_lossy().as_ref())
+                    }) {
+                        continue;
+                    }
+
                     if !entry.file_type().is_file() {
                         continue;
                     }
