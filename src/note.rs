@@ -27,13 +27,15 @@ impl Note {
         let mut tags = metadata.tags();
 
         let mut wikilink_parser = WikilinkParser::new();
+
         for event in parser {
             if let Event::Text(text) = event {
                 if let Some(link) = wikilink_parser.feed(&text) {
                     links.push(link);
                 }
 
-                collect_tags(&text, &mut tags);
+                let new_tags = collect_tags(&text);
+                tags.extend(new_tags);
             }
         }
 
@@ -64,23 +66,35 @@ impl Note {
     }
 }
 
-fn collect_tags(text: &str, tags: &mut Vec<String>) {
-    let mut tag_start = 0;
+fn collect_tags(text: &str) -> Vec<String> {
+    let allowed = "_-/";
 
-    for (i, chr) in text.chars().enumerate() {
-        if chr == '#' {
-            tag_start = i + 1;
-        } else if tag_start > 0
-            && !(chr.is_alphanumeric() || chr == '_' || chr == '-' || chr == '/')
-        {
-            tags.push(text[tag_start..i].to_string());
-            tag_start = 0;
+    let mut tags = Vec::new();
+    let mut next: String = String::new();
+    let mut in_tag = false;
+
+    text.chars().for_each(|c| {
+        print!("{}", c);
+
+        if c == '#' {
+            in_tag = true;
+        } else if in_tag {
+            if c.is_alphanumeric() || allowed.contains(c) {
+                next.push(c);
+            } else {
+                if !next.is_empty() {
+                    tags.push(next.clone());
+                    next.clear();
+                }
+                in_tag = false;
+            }
         }
-    }
+    });
 
-    if tag_start > 0 {
-        tags.push(text[tag_start..].to_string());
+    if !next.is_empty() {
+        tags.push(next);
     }
+    tags
 }
 
 #[derive(Error, Debug)]
@@ -122,7 +136,7 @@ mod tests {
                 title: "Example".to_string(),
                 content: r#"#example
 
-Example content. With #test tag inside.
+Example content. With #test tag inside. Текст может содержать символы Юникода: #даже_в-тегах/hello42.
 
 ## Heading 2
 
@@ -143,7 +157,8 @@ fn main () {
                 tags: vec![
                     "example".to_string(),
                     "test".to_string(),
-                    "code/rust".to_string()
+                    "даже_в-тегах/hello42".to_string(),
+                    "code/rust".to_string(),
                 ],
                 links: vec![
                     Wikilink::new("Page Name", Some("Link label")),

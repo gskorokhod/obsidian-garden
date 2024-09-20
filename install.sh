@@ -2,7 +2,7 @@
 set -u
 
 PROGRAM_NAME=obsidian-garden
-BASE_URL=https://github.com/ecarrara/obsidian-garden/releases/latest/download
+BASE_URL=https://github.com/gskorokhod/obsidian-garden/releases/latest/download
 
 message () {
   case $1 in

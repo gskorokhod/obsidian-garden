@@ -4,7 +4,7 @@ category: Example
 ---
 #example
 
-Example content. With #test tag inside.
+Example content. With #test tag inside. Текст может содержать символы Юникода: #даже_в-тегах/hello42.
 
 ## Heading 2
 
