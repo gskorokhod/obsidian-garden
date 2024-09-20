@@ -81,3 +81,25 @@ obsidian-garden build
 ```bash
 pagefind --source dist
 ```
+
+## What next?
+
+This tool will generate a directory of HTML files based on your notes,
+These will be stored in `dist/` inside your Obsidian vault by default.
+
+You can:
+
+- Host it using your static site hosting solution of choice (such as GitHub Pages, or similar)
+- Self-host it with any HTTP server
+
+To preview the generated site:
+
+1. Go to the output directory:
+```bash
+cd dist
+```
+2. Run [your favourite HTTP server one-liner](https://gist.github.com/willurd/5720255)
+```bash
+python -m http.server 8000
+```
+3. Open [http://localhost:8000] in your web browser
