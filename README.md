@@ -2,9 +2,8 @@
 
 This is a fork of https://github.com/ecarrara/obsidian-garden
 
-Obsidian Garden is a program to transform Obsidian Vault's notes into web
-pages. It converts your markdown notes, created in Obsidian, into fully
-functional site, ready for deployment.
+Obsidian Garden is a simple CLI tool to transform Obsidian Vault's notes into web
+pages
 
 ## Installation
 
